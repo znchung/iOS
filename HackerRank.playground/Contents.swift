@@ -91,12 +91,33 @@ let arrayManipulationResult = arrayManipulation(n: 10, queries: [
 
 print("arrayManipulationResult \(arrayManipulationResult)")
 
-// Complete the icecreamParlor function below.
 func icecreamParlor(m: Int, arr: [Int]) -> [Int] {
-
-
+    var result = [Int]()
+    
+    for i in 0..<arr.count {
+        for j in 0..<arr.count {
+            if i == j { continue }
+            if arr[i] + arr[j] == m {
+                if i >= j {
+                    result = [j+1, i+1]
+                } else {
+                    result = [i+1, j+1]
+                }
+                
+                if !result.isEmpty {
+                    break
+                }
+            }
+        }
+    }
+    return result
 }
 
-let icecreamParlorResult = icecreamParlor(m: 6, arr: [1,3,4,5,6])
+let arr1 = [1,3,4,5,6] // m: 6
+let arr2 = [1,3,4,6,7,9] // m: 9
+let arr3 = [1,4,5,3,2] // m: 4
+let arr4 = [1,3,4,4,6,8] // m: 8
+let arr5 = [1,2] // m: 3
+let icecreamParlorResult = icecreamParlor(m: 4, arr: arr3)
 
 print("icecreamParlorResult \(icecreamParlorResult)")
