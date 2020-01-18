@@ -121,3 +121,83 @@ let arr5 = [1,2] // m: 3
 let icecreamParlorResult = icecreamParlor(m: 4, arr: arr3)
 
 print("icecreamParlorResult \(icecreamParlorResult)")
+
+// 1, 1    2,2
+
+// 0, 3    1,4
+// 2, 3    1,0
+// 3, 0    3,4
+// 3, 2    3,0
+//         4,1
+//         0,1
+//         0,3
+//         4,3
+
+func knightNextPossibleMoves(x: Int, y: Int) -> [(Int, Int)] {
+    var result = [(Int, Int)]()
+    
+    let tempXMinus = x-1
+    
+    if tempXMinus >= 0 {
+        result.append((tempXMinus, y+2))
+        
+        let tempY = y-2
+        if tempY >= 0 {
+            result.append((tempXMinus, tempY))
+        }
+    }
+    
+    let tempXPlus = x+1
+    result.append((tempXPlus, y+2))
+    
+    let tempYMinus = y-2
+    if tempYMinus >= 0 {
+        result.append((tempXPlus, tempYMinus))
+    }
+    
+    let tempYMinus2 = y-1
+    
+    if tempYMinus2 >= 0 {
+        result.append((x+2, tempYMinus2))
+        
+        let tempXMinus = x-2
+        if tempXMinus >= 0 {
+            result.append((tempXMinus, tempYMinus2))
+        }
+    }
+    
+    let tempYPlus = y+1
+    result.append((x+2, tempYPlus))
+    
+    let tempXMinus2 = x-2
+    if tempXMinus2 >= 0 {
+        result.append((tempXMinus2, tempYPlus))
+    }
+    return result
+}
+
+let possibleMoves = knightNextPossibleMoves(x: 1, y: 1)
+
+print("Knight's possibleMoves \(possibleMoves)")
+
+// minimum moves from (0,0) -> (n-1, n-1)
+func knightlOnAChessboard(n: Int) -> [[Int]] {
+    var expectedCoordinate = (n-1, n-1)
+    var result = [[Int]]()
+    
+    for x in 0..<n {
+        for y in 0..<n {
+            var isFound = false
+            
+            var latest = (x, y)
+            while (!isFound) {
+                latest
+            }
+        }
+    }
+    return result
+}
+
+let chessboardResult = knightlOnAChessboard(n: 5)
+
+print("knightlOnAChessboardResult \(chessboardResult)")

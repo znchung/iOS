@@ -318,3 +318,72 @@ class Element<T> {
         return Element.fromArray(elements.reversed())
     }
 }
+
+extension StringProtocol {
+    var words: [SubSequence] {
+        return split{ !$0.isLetter }
+    }
+}
+
+class Acronym {
+    static func abbreviate(_ str: String) -> String {
+        if let index = str.firstIndex(of: ":") {
+            return str.substring(to: index)
+        }
+        let split = str.words
+        
+        var result = ""
+        for i in split {
+            let inner = i.split { !$0.isUppercase }
+            
+            if inner.isEmpty {
+                result += i.first!.uppercased()
+            } else {
+                result += inner.joined()
+            }
+        }
+        return result
+    }
+}
+
+let acronymResult = Acronym.abbreviate("PHP: Hypertext Preprocessor")
+
+print("acronymResult \(acronymResult)")
+
+print("Ruby on Rails".words)
+
+let temp = "RubyRails on Rails".words
+
+var result = ""
+for i in temp {
+    let inner = i.split { !$0.isUppercase }
+    
+    if inner.isEmpty {
+        result += i.first!.uppercased()
+    } else {
+        result += inner.joined()
+    }
+}
+
+// Get Column
+extension Array where Element : Collection {
+    func getColumn(column : Element.Index) -> [ Element.Iterator.Element ] {
+        return self.map { $0[ column ] }
+    }
+}
+
+struct Matrix {
+    var rows = [[Int]]()
+    var columns = [[Int]]()
+    
+    init(_ matrixString: String) {
+        let _rows = matrixString.split(separator: "\n").map { $0.split(separator: " ").compactMap { Int($0) }}
+        guard _rows.count > 0 else { return }
+        self.rows = _rows
+        self.columns = rows[0].enumerated().map { (offset, _) in rows.map { $0[offset] }}
+    }
+}
+
+let matrixResult = Matrix("1 2\n3 4")
+print("rows \(matrixResult.rows[0])")
+print("columns \(matrixResult.columns)")
